@@ -1,6 +1,6 @@
 :root {
-    --w: calc(70vw / 6);
-    --h: calc(70vh / 4);
+    --w: calc(70vw / 5);
+    --h: calc(80vh / 6);
 }
 * {
     transition: all 0.5s;
@@ -16,7 +16,7 @@ body{
     justify-content: center;
     align-items: center;
     text-align: center;
-    font-family:fantasy;  
+    font-family:Arial, Helvetica, sans-serif;  
 }
 div{
     display: inline-block;
@@ -26,6 +26,7 @@ div{
     width: var(--w);
     min-width: 100px;
     height: var(--h);
+    margin: 4px;
 }
 .tarjeta {
     position: relative;
@@ -44,19 +45,22 @@ div{
     align-items: center;
 }
 .trasera {
-    background-color: #ffa300;
+    background: linear-gradient(#ff6f00, rgb(255, 156, 42));
     transform: rotateY(180deg);
 }
 .superior {
-    background: linear-gradient(#ff0534, darkred);
+    background: linear-gradient(#0059ff, rgb(18, 34, 162));
 }
 .nuevo-juego {
+    width: 150px;
     cursor: pointer;
-    background: linear-gradient(#ff0534, darkred);
-    padding: 20px;
+    background: linear-gradient(#ff9900, darkred);
     border-radius: 50px;
     border: white 5px solid;
-    text-decoration-color: white;
+}
+p{
+    font-size: 20px;
+    color: white;
 }
 
 @keyframes iniciar {
@@ -66,4 +70,9 @@ div{
     0%,100%{
         transform: rotateY(0deg);
     }
+}
+h2,h3{
+    color: white;
+    font-size: 20px;
+    
 }

@@ -1,4 +1,6 @@
 let iconos
+let mensaje = document.getElementById("cont");
+let cont= 0
 generarTablero()
 function  cargarIconos(params) {
     iconos = [
@@ -18,6 +20,7 @@ function  cargarIconos(params) {
 }
 
 function generarTablero() {
+    cont= 0
     cargarIconos()
     selecciones = []
     let tablero = document.getElementById("tablero")
@@ -41,6 +44,7 @@ function generarTablero() {
     }
     tarjetas.sort(() => Math.random() - 0.5)
     tablero.innerHTML = tarjetas.join(" ")
+    mensaje.textContent = cont;
 }
 
 function seleccionarTarjeta(i) {
@@ -65,8 +69,14 @@ function deseleccionar(selecciones) {
             tarjeta1.style.transform = "rotateY(0deg)"
             tarjeta2.style.transform = "rotateY(0deg)"
         }else{
-            trasera1.style.background = "plum"
-            trasera2.style.background = "plum"
+            cont=cont+1
+            mensaje.textContent = cont;
+            if (cont==12){
+                mensaje.textContent=12 + " - GANASTE";
+            }
+            trasera1.style.background = "pull"
+            trasera2.style.background = "pull"
         }
     }, 1000);
+    
 }
