@@ -32,9 +32,7 @@ div{
     transform-style: preserve-3d;
     animation: iniciar 5s;
 }
-.area-tarjeta:hover .tarjeta{
-    transform: rotateX(180deg);
-}
+
 .cara {
     position: absolute;
     backface-visibility: hidden;
@@ -47,7 +45,7 @@ div{
 }
 .trasera {
     background-color: blue;
-    transform: rotateX(180deg);
+    transform: rotateY(180deg);
 }
 .superior {
     background: linear-gradient(red, darkred);
