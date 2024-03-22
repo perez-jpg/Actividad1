@@ -30,7 +30,7 @@ function generarTablero() {
                     ${iconos[0]}
                 </div>
                 <div class="cara superior">
-                    <i class="fa-solid fa-laptop-code" style="color:white;"></i>
+                <i class="fa-solid fa-question" style="color:white;"></i>
                 </div>
             </div>
         </div>        

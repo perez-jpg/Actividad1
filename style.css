@@ -9,7 +9,7 @@ body{
     padding: 0;
     margin: 0;
     -webkit-perspective: 1000;
-    background-color: black; 
+    background-color: #000117; 
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -44,18 +44,19 @@ div{
     align-items: center;
 }
 .trasera {
-    background-color: blue;
+    background-color: #ffa300;
     transform: rotateY(180deg);
 }
 .superior {
-    background: linear-gradient(red, darkred);
+    background: linear-gradient(#ff0534, darkred);
 }
 .nuevo-juego {
     cursor: pointer;
-    background: linear-gradient(red, darkred);
+    background: linear-gradient(#ff0534, darkred);
     padding: 20px;
     border-radius: 50px;
     border: white 5px solid;
+    text-decoration-color: white;
 }
 
 @keyframes iniciar {
