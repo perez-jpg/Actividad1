@@ -1,7 +1,9 @@
 let iconos
+let Nuevo = document.getElementById("Nuevo");
 let mensaje = document.getElementById("cont");
 let cont= 0
 generarTablero()
+Nuevo.addEventListener("click",generarTablero);
 function  cargarIconos(params) {
     iconos = [
         '<i class="fa-brands fa-php"></i>',
