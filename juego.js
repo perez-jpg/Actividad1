@@ -22,6 +22,27 @@ function  cargarIconos(params) {
 }
 
 function generarTablero() {
+
+    function iniciarTemporizador(duration, display) {
+        var timer = duration, minutes, seconds;
+        setInterval(function () {
+            minutes = parseInt(timer / 60, 10);
+            seconds = parseInt(timer % 60, 10);
+    
+            minutes = minutes < 10 ? "0" + minutes : minutes;
+            seconds = seconds < 10 ? "0" + seconds : seconds;
+    
+            display.textContent = minutes + ":" + seconds;
+    
+            if (--timer < 0) {
+                alert("Time's Up!");
+                clearInterval(intervalId);
+            }
+        }, 1000);
+    }
+    var tiempoRestante = 300; 
+    var display = document.querySelector('#temporizador');
+    iniciarTemporizador(tiempoRestante, display);
     cont= 0
     cargarIconos()
     selecciones = []
@@ -60,6 +81,7 @@ function seleccionarTarjeta(i) {
         selecciones = []
     }
 }
+
 function deseleccionar(selecciones) {
     setTimeout(() => {
         let trasera1 = document.getElementById("trasera" + selecciones[0])
