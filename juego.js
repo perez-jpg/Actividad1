@@ -1,7 +1,8 @@
-let iconos
+let iconos;
 let Nuevo = document.getElementById("Nuevo");
 let mensaje = document.getElementById("cont");
-let cont= 0
+let cont= 0;
+var cronometro;
 generarTablero()
 Nuevo.addEventListener("click",generarTablero);
 function  cargarIconos(params) {
@@ -15,34 +16,64 @@ function  cargarIconos(params) {
         '<i class="fa-brands fa-python"></i>',
         '<i class="fa-brands fa-codepen"></i>',
         '<i class="fa-brands fa-linux"></i>',
-        '<i class="fa-solid fa-server"></i>',
+        '<i class="fa-solid fa-server"></i>',   
         '<i class="fa-solid fa-cookie-bite"></i>',
         '<i class="fa-brands fa-bootstrap"></i>',
     ]
 }
-
 function generarTablero() {
-
-    function iniciarTemporizador(duration, display) {
-        var timer = duration, minutes, seconds;
-        setInterval(function () {
-            minutes = parseInt(timer / 60, 10);
-            seconds = parseInt(timer % 60, 10);
-    
-            minutes = minutes < 10 ? "0" + minutes : minutes;
-            seconds = seconds < 10 ? "0" + seconds : seconds;
-    
-            display.textContent = minutes + ":" + seconds;
-    
-            if (--timer < 0) {
-                alert("Time's Up!");
-                clearInterval(intervalId);
-            }
-        }, 1000);
+    if (cronometro) {
+        cronometro.detener();
     }
-    var tiempoRestante = 300; 
-    var display = document.querySelector('#temporizador');
-    iniciarTemporizador(tiempoRestante, display);
+    var elementoCronometroAnterior = document.getElementById("temporizadorAnterior");
+    if (elementoCronometroAnterior) {
+        elementoCronometroAnterior.parentNode.removeChild(elementoCronometroAnterior);
+    }
+      var tiempoRestante = 300;
+      var display = document.querySelector('#temporizador');
+      cronometro = iniciarTemporizador(tiempoRestante, display);
+    
+      function iniciarTemporizador(duration, display) {
+        var timer = duration, minutes, seconds;
+        var intervalId;
+        var avisado = false; 
+        function detenerCronometro() {
+          clearInterval(intervalId);
+        }
+        function reiniciarTemporizador(nuevaDuracion) {
+          detenerCronometro();
+          timer = nuevaDuracion;
+          iniciarTemporizador(timer, display);
+        }
+        intervalId = setInterval(function () {
+          minutes = parseInt(timer / 60, 10);
+          seconds = parseInt(timer % 60, 10);
+    
+          minutes = minutes < 10 ? "0" + minutes : minutes;
+          seconds = seconds < 10 ? "0" + seconds : seconds;
+    
+          display.textContent = minutes + ":" + seconds;
+
+          if (cont == 12) {
+            detenerCronometro();
+          } 
+          if (--timer < 0) {
+            if (!avisado) {
+              alert("¡Se acabó el tiempo!😣🙁");
+              alert("Puedes vulver a intentarlo para mejorar tu tiempo😉⌚");
+              avisado = true;
+              detenerCronometro();
+            }
+            detenerCronometro();
+          }
+        }, 1000);
+    
+        // Exponer funciones para detener y reiniciar el cronometro
+        return {
+          detener: detenerCronometro,
+          reiniciar: reiniciarTemporizador,
+        };
+      }
     cont= 0
     cargarIconos()
     selecciones = []
@@ -94,11 +125,11 @@ function deseleccionar(selecciones) {
         }else{
             cont=cont+1
             mensaje.textContent = cont;
-            if (cont==12){
-                mensaje.textContent=12 + " - GANASTE";
-            }
-            trasera1.style.background = "pull"
-            trasera2.style.background = "pull"
+            if (cont == 12) {
+                mensaje.textContent ="¡GANASTE!"+12;
+                alert("¡Felicidades! Has encontrado todas las parejas.");
+                detenerCronometro();
+              } 
         }
     }, 1000);  
   }
