@@ -1,27 +1,12 @@
-let iconos;
-let Nuevo = document.getElementById("Nuevo");
+let img;
+let arena = document.getElementById("arena")
+let reiniciar = document.getElementById("reiniciar");
 let mensaje = document.getElementById("cont");
 let cont= 0;
 var cronometro;
-generarTablero()
-Nuevo.addEventListener("click",generarTablero);
-function  cargarIconos(params) {
-    iconos = [
-        '<i class="fa-brands fa-php"></i>',
-        '<i class="fa-brands fa-java"></i>',
-        '<i class="fa-brands fa-js"></i>',
-        '<i class="fa-brands fa-css3-alt"></i> ',
-        '<i class="fa-brands fa-github"></i>',
-        '<i class="fa-solid fa-database"></i>',
-        '<i class="fa-brands fa-python"></i>',
-        '<i class="fa-brands fa-codepen"></i>',
-        '<i class="fa-brands fa-linux"></i>',
-        '<i class="fa-solid fa-server"></i>',   
-        '<i class="fa-solid fa-cookie-bite"></i>',
-        '<i class="fa-brands fa-bootstrap"></i>',
-    ]
-}
-function generarTablero() {
+creararena()
+reiniciar.addEventListener("click",creararena);
+function creararena() {
     if (cronometro) {
         cronometro.detener();
     }
@@ -67,44 +52,41 @@ function generarTablero() {
             detenerCronometro();
           }
         }, 1000);
-    
-        // Exponer funciones para detener y reiniciar el cronometro
         return {
           detener: detenerCronometro,
           reiniciar: reiniciarTemporizador,
         };
       }
     cont= 0
-    cargarIconos()
+    img = ['<img src="img/github.png" alt="github">','<img src="img/java.png" alt="java">','<img src="img/linux.png" alt="linux">','<img src="img/microsoft.png" alt="microsoft">','<img src="img/mysql.png" alt="mysql">','<img src="img/php.png" alt="php">','<img src="img/python.png" alt="python">','<img src="img/visual.png" alt="visual">']
     selecciones = []
-    let tablero = document.getElementById("tablero")
-    let tarjetas = []
-    for (let i = 0; i < 24; i++) {
-        tarjetas.push(`
-        <div class="area-tarjeta" onclick="seleccionarTarjeta(${i})">
-            <div class="tarjeta" id="tarjeta${i}">
-                <div class="cara trasera" id="trasera${i}">
-                    ${iconos[0]}
+    let cartas = []
+    for (let i = 0; i < 16; i++) {
+        cartas.push(`
+        <div class="area-carta" onclick="seleccionarcarta(${i})">
+            <div class="carta" id="carta${i}">
+                <div class="lado reverso" id="reverso${i}">
+                    ${img[0]}
                 </div>
-                <div class="cara superior">
+                <div class="lado superior">
                 <i class="fa-solid fa-question" style="color:white;"></i>
                 </div>
             </div>
         </div>        
         `)
         if (i % 2 == 1) {
-            iconos.splice(0, 1)
+            img.splice(0, 1)
         }
     }
-    tarjetas.sort(() => Math.random() - 0.5)
-    tablero.innerHTML = tarjetas.join(" ")
+    cartas.sort(() => Math.random() - 0.5)
+    arena.innerHTML = cartas.join(" ")
     mensaje.textContent = cont;
 }
 
-function seleccionarTarjeta(i) {
-    let tarjeta = document.getElementById("tarjeta" + i)
-    if (tarjeta.style.transform != "rotateY(180deg)") {
-        tarjeta.style.transform = "rotateY(180deg)"
+function seleccionarcarta(i) {
+    let carta = document.getElementById("carta" + i)
+    if (carta.style.transform != "rotateY(180deg)") {
+        carta.style.transform = "rotateY(180deg)"
         selecciones.push(i)
     }
     if (selecciones.length == 2) {
@@ -115,14 +97,22 @@ function seleccionarTarjeta(i) {
 
 function deseleccionar(selecciones) {
     setTimeout(() => {
-        let trasera1 = document.getElementById("trasera" + selecciones[0])
-        let trasera2 = document.getElementById("trasera" + selecciones[1])
-        if (trasera1.innerHTML != trasera2.innerHTML) {
-            let tarjeta1 = document.getElementById("tarjeta" + selecciones[0])
-            let tarjeta2 = document.getElementById("tarjeta" + selecciones[1])
-            tarjeta1.style.transform = "rotateY(0deg)"
-            tarjeta2.style.transform = "rotateY(0deg)"
+        let reverso1 = document.getElementById("reverso" + selecciones[0])
+        let reverso2 = document.getElementById("reverso" + selecciones[1])
+        if (reverso1.innerHTML != reverso2.innerHTML) {
+            let carta1 = document.getElementById("carta" + selecciones[0])
+            let carta2 = document.getElementById("carta" + selecciones[1])
+            carta1.style.transform = "rotateY(0deg)"
+            carta2.style.transform = "rotateY(0deg)"
+            document.body.style.backgroundColor = "#ff3c00";
+            setTimeout(function() {
+              document.body.style.backgroundColor = "#3c0653";  
+            },600)
         }else{
+          document.body.style.backgroundColor = "green";
+            setTimeout(function() {
+              document.body.style.backgroundColor = "#3c0653";  
+            },600)
             cont=cont+1
             mensaje.textContent = cont;
             if (cont == 12) {
